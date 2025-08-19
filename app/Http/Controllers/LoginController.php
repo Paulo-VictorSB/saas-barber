@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    public function login(): View
+    {
+        return view('Login');
+    }
+
     public function loginSubmit(Request $request)
     {
         $request->validate([
@@ -35,7 +41,7 @@ class LoginController extends Controller
             'text-password.regex' => 'A senha deve conter pelo menos 1 número e 1 caracter especial.',
         ]);
 
-        session('user', $request->input('text-user'));
-        return "success";
+        session()->put('user', $request->input('text-user'));
+        return redirect()->to('/');
     }
 }
